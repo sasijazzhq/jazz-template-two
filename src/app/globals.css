@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* Rusi AI tokens — see design.md §2. Primary is darkened from #008C3A to
+   #008236 so white text on it reaches WCAG AA (4.9:1). */
+:root {
+  --bg: #f8faf9;
+  --card: #ffffff;
+  --ink: #111827;
+  --ink2: #5b6472;
+  --line: #e5e7eb;
+  --fill: #f0f3f1;
+  --primary: #008236;
+  --green: #086b32;
+  --tint: #eaf8ee;
+  --accent: #f7c948;
+  --danger: #b42318;
+  --danger-tint: #fef3f2;
+  --warn: #7a4b00;
+  --warn-tint: #fff6da;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c100e;
+    --card: #171c19;
+    --ink: #f3f4f6;
+    --ink2: #a8b0bb;
+    --line: #2c332f;
+    --fill: #222925;
+    --primary: #008236;
+    --green: #6fdc97;
+    --tint: #12301e;
+    --danger: #ff9b8f;
+    --danger-tint: #3a1814;
+    --warn: #f7c948;
+    --warn-tint: #33290c;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink2);
+  --color-line: var(--line);
+  --color-fill: var(--fill);
+  --color-primary: var(--primary);
+  --color-green: var(--green);
+  --color-tint: var(--tint);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --color-danger-tint: var(--danger-tint);
+  --color-warn: var(--warn);
+  --color-warn-tint: var(--warn-tint);
+  --radius-card: 16px;
+  --radius-btn: 12px;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.safe-top {
+  padding-top: max(12px, env(safe-area-inset-top));
+}
+.safe-bottom {
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+.safe-x {
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.sheet-content { animation: sheet-up 0.22s ease-out; }
+.sheet-overlay { animation: fade-in 0.2s ease-out; }
+.spinner { animation: spin-slow 0.9s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-content, .sheet-overlay { animation: none; }
+  .spinner { animation-duration: 2.5s; }
+  * { transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
